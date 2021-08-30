@@ -7,11 +7,6 @@
     "start": "node ./api/",
     "heroku-postbuild": "cd api && npm i && cd ../client && npm i && npm run build"
   },
-  "devServer": {
-    "historyApiFallback": true,
-    "contentBase": "./",
-    "hot": true
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reuben4310/dvartorah.git"

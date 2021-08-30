@@ -7,6 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon"
   },
+  "devServer": {
+    "historyApiFallback": true,
+    "contentBase": "./",
+    "hot": true
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
