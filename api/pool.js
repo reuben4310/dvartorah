@@ -1,4 +1,5 @@
 const debug = require('debug')('api:pool');
+
 const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 1200000000000000,
