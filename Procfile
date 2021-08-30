@@ -1,1 +1,1 @@
-web: npm start
+web: npm start dvartorah/api & /client & wait -n
