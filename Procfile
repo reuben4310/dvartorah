@@ -1,1 +1,1 @@
-web: node parsha.js
+worker: node parsha.js
