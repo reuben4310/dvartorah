@@ -24,11 +24,16 @@
   color: white;
 }
 
-.button Button{
+.button Button {
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 25px;
+}
+
+.vort-text {
+  margin-right: 10%;
+  margin-left: 10%;
 }
 
 .App-link {
