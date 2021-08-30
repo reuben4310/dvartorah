@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "./api/parshas.js",
-  "scripts": {
-    "start": "node ./api",
-    "heroku-postbuild": "cd api && npm i && cd ../client && npm i && npm run build"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reuben4310/dvartorah.git"
