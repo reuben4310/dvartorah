@@ -4,7 +4,7 @@
   "description": "",
   "main": "./api/parshas.js",
   "scripts": {
-    "start": "node ./api/parshas.js",
+    "start": "node /api/parshas.js",
     "heroku-postbuild": "cd api && npm i && cd ../client && npm i && npm run build"
   },
   "repository": {
