@@ -1,7 +1,7 @@
 const debug = require('debug')('api:poolMedium');
 const mysql = require('mysql');
 const pool = mysql.createPool({
-    connectionLimit: 1200,
+    connectionLimit: 120000000000000,
     // develpmont DB- Not so reliable though
     host: 'remotemysql.com',
     user: 'iqLm4p5LJj',

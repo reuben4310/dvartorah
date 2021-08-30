@@ -18,6 +18,7 @@ function App() {
   useEffect(async () => {
     await
       fetch('http://localhost:1818/vorts')
+     
         .then(function (response) {
           if (response.status >= 400) {
             throw new Error("Bad response from server");
