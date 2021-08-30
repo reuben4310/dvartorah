@@ -1,1 +1,1 @@
-worker: node parsha.js
+web: npm start
