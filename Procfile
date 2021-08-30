@@ -1,1 +1,1 @@
-web: npm start dvartorah/api & /parsha & wait -n
+web: npm start dvartorah/api/parshas.js & ./parsha/ & wait -n
