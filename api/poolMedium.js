@@ -7,9 +7,7 @@ const pool = mysql.createPool({
     user: 'iqLm4p5LJj',
     password: '2TCefRKgVM',
     database: 'iqLm4p5LJj',
-
     // private DB for backup
-
     // host: 'localhost',
     // user: 'rnSefar',
     // password: '1234',
