@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 app.use(cors());
+const port = 1818;
 const router = express.Router()
 const pool = require('./pool');
 const poolMedium = require('./poolMedium');
@@ -47,5 +48,5 @@ router.get("/mediumVorts", (req, res, next) => {
         });
 });
 module.exports = router;
-app.listen(1818);
+app.listen(process.env.PORT || port);
 app.use('/', router);
