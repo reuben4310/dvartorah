@@ -5,7 +5,7 @@ import Home from './Home';
 import Beginner from "./Beginner"
 import Medium from "./Medium"
 import Advanced from "./Advanced"
-import { Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 
 function App() {
