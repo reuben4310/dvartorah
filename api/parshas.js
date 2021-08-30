@@ -48,5 +48,8 @@ router.get("/mediumVorts", (req, res, next) => {
         });
 });
 module.exports = router;
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 app.listen(process.env.PORT)
 app.use('/', router);
