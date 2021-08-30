@@ -1,1 +1,1 @@
-web: puma -C config/puma.rb & sidekiq & wait -n
+web: npm start <dvartorah/api> & /client & wait -n
