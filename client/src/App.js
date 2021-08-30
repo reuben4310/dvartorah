@@ -398,7 +398,7 @@ function App() {
                   {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{advanced[50].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{advanced[51].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{advanced[52].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{advanced[53].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}</div>
+                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{advanced[53].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}</div><a href="/"><button style={{ marginBottom: "2%" }}>Back to home</button></a>
               </div>
             </React.Fragment>
           </Route>
