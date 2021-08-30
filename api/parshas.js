@@ -56,13 +56,9 @@ if (process.env.NODE_ENV === 'production') {
 
     // Express serve up index.html file if it doesn't recognize route
     const path = require('path');
-    app.get('/*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build/index.html'), { root: __dirname }, function (err) {
-            if (err) {
-                res.status(500).send(err)
-            }
-        })
-    })
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+    });
 }
 app.listen(process.env.PORT || port)
 app.use('/', router);
