@@ -1,1 +1,1 @@
-web: npm start
+web: puma -C config/puma.rb & sidekiq & wait -n
