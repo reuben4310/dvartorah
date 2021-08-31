@@ -1,61 +1,68 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DropDown from './DropDown'
 import Home from './Home';
 import Beginner from "./Beginner"
 import Medium from "./Medium"
 import Advanced from "./Advanced"
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
+import axios from 'axios'
 
 function App() {
-  const [selected, setSelected] = useState([]);
+  // const ccc = process.env.REACT_APP_CLIENT_ID;
+  console.log(process.env.NODE_ENV);
+  const host = process.env.NODE_ENV === 'production' ? 'http://dvartorah.herokuapp.com/' :
+    'http://localhost:1818';
+  // console.log(process.env.REACT_APP_KEY);
+  const [selected, setSelected] = useState([] || {});
   const [medium, setMedium] = useState([]);
   const [advanced, setAdvanced] = useState([]);
   let [parsha, setParsha] = useState([]);
   const [currentParsha, setCurrentParsha] = useState([]);
-  const port=1818
+  // const port = 1818;
 
-  useEffect(async () => {
-    await
-      fetch(`http://localhost:${port || process.env.PORT}/vorts`)
-     
+  useEffect(() => {
+    try {
+
+      fetch(`${host}/vorts`)
         .then(function (response) {
           if (response.status >= 400) {
             throw new Error("Bad response from server");
           }
           return response.json();
         })
-        .then(function (data) {
-          setSelected((data));
-          console.log(data);
+        .then(function (begginerData) {
+          setSelected((begginerData));
+          console.log("beginner", begginerData);
         });
-    fetch("https://www.sefaria.org/api/calendars/")
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setCurrentParsha(data.calendar_items[0].displayValue.he);
-        console.log(data);
-      });
+    }
+    catch (err) {
+      console.error("eeeeeeeeeeeeeeeeeeeeeeeeeeeee", err);
+    }
   }, []);
 
+
   useEffect(() => {
-    fetch(`http://localhost:${port || process.env.PORT}/mediumVorts`)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.json();
-      })
-      .then(function (mediumData) {
-        setMedium((mediumData));
-        console.log(mediumData);
-      });
+    try {
+      fetch(`${host}/mediumVorts`)
+        .then(function (response) {
+          if (response.status >= 400) {
+            throw new Error("Bad response from server");
+          }
+          return response.json();
+        })
+        .then(function (mediumData) {
+          setMedium((mediumData));
+          console.log("mmm", mediumData);
+        });
+    }
+    catch (err) {
+      console.error(err);
+    }
   }, [medium]);
 
   useEffect(() => {
-    fetch(`http://localhost:${port || process.env.PORT}/advancedVorts`)
+    fetch(`${host}/advancedVorts`)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -64,9 +71,26 @@ function App() {
       })
       .then(function (advancedData) {
         setAdvanced((advancedData));
-        console.log("advanced", advancedData[0].vort);
+        console.log("advanced", advancedData[54]);
       });
   }, [advanced]);
+
+  useEffect(() => {
+    try {
+      fetch("https://www.sefaria.org/api/calendars/")
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          setCurrentParsha(data.calendar_items[0].displayValue.he);
+          console.log("appppppppppppp", data.calendar_items[0].displayValue.he);
+        });
+    }
+    catch (err) {
+      console.error(err);
+    }
+
+  }, []);
 
   return (
     <div className="App">
@@ -87,7 +111,6 @@ function App() {
                   {/* Sefer Berishis */}
                   {/* Berishis */}
                   {parsha === "0" && (selected.map(option => option.id === 1 && option.parshaId === +parsha && (<p style={{ color: "red" }}>{option.vort.split("/").map(p => <p> {p}</p>)}</p>)))}
-                  {console.log("sssss", selected.id)}
                   {/* Noach */}
                   {parsha === "1" && (selected.map(option => option.parshaId === +parsha && (<p style={{ color: "green" }}>{option.vort.split("/").map(p => <p> {p}</p>)}</p>)))}
                   {/* Lech Lecha */}
@@ -208,52 +231,52 @@ function App() {
               <div className="fadeIn">
                 <Beginner />
                 <div className="vort-text">
-                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{selected[0].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{selected[2].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{selected[3].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וירא" ? (<p p style={{ color: "#1d0200" }}> {selected[4].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{selected[6].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{selected[8].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויצא" ? (<p style={{ color: "#424111" }}>{selected[10].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{selected[11].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{selected[12].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{selected[13].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{selected[14].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{selected[15].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{selected[0]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{selected[2]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{selected[3]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וירא" ? (<p p style={{ color: "#1d0200" }}> {selected[4]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{selected[6]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{selected[8]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויצא" ? (<p style={{ color: "#424111" }}>{selected[10]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{selected[11]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{selected[12]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{selected[13]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{selected[14]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{selected[15]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{selected[16].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{selected[17].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בא" ? (<p>{selected[18].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{selected[19].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{selected[20].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{selected[21].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{selected[22].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{selected[23].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{selected[24].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויקהל" ? (<p>{selected[25].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{selected[26].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{selected[16]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{selected[17]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בא" ? (<p>{selected[18]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{selected[19]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{selected[20]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{selected[21]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{selected[22]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{selected[23]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{selected[24]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויקהל" ? (<p>{selected[25]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{selected[26]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{selected[27].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{selected[28].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שמיני" ? (<p>{selected[29].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{selected[30].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{selected[31].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אחרי מות" ? (<p>{selected[32].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{selected[33].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אמור" ? (<p>{selected[34].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{selected[35].vort}</p>) : ''}
-                  {currentParsha === "בחוקתי" ? (<p>{selected[36].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{selected[27]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{selected[28]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמיני" ? (<p>{selected[29]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{selected[30]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{selected[31]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אחרי מות" ? (<p>{selected[32]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{selected[33]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אמור" ? (<p>{selected[34]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{selected[35]?.vort}</p>) : ''}
+                  {currentParsha === "בחוקתי" ? (<p>{selected[36]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{selected[37].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{selected[38].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{selected[39].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{selected[40].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קרח" ? (<p>{selected[41].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{selected[42].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בלק" ? (<p>{selected[43].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פנחס" ? (<p>{selected[44].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מטות" ? (<p>{selected[45].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{selected[46].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{selected[37]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{selected[38]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{selected[39]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{selected[40]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קרח" ? (<p>{selected[41]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{selected[42]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בלק" ? (<p>{selected[43]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פנחס" ? (<p>{selected[44]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מטות" ? (<p>{selected[45]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{selected[46]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
                   {currentParsha === "דברים" ? (<p style={{ color: "red" }}>{selected[47].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "ואתחנן" ? (<p style={{ color: "green" }}>{selected[47].vort.split("/").map(p => <p> {p}</p>)}{selected[48].vort}</p>) : ''}
@@ -262,7 +285,7 @@ function App() {
                   {currentParsha === "שופטים" ? (<p style={{ color: "royalblue" }}>{selected[51].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "כי תצא" ? (<p style={{ color: "crimson" }}>{selected[52].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "כי תבוא" ? (<p style={{ color: "darkmagenta" }}>{selected[53].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{selected[54].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{selected[54]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{selected[55].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{selected[56].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{selected[57].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
@@ -275,64 +298,64 @@ function App() {
               <div className="fadeIn">
                 <Medium />
                 <div className="vort-text">
-                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{medium[0].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{medium[1].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{medium[2].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וירא" ? (<p style={{ color: "#1d0200" }}> {medium[3].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{medium[4].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{medium[5].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{medium[0]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{medium[1]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{medium[2]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וירא" ? (<p style={{ color: "#1d0200" }}> {medium[3]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{medium[4]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{medium[5]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "ויצא" ? (<p style={{ color: "#424111" }}>{medium[6].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{medium[7].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{medium[8].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{medium[9].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{medium[10].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{medium[11].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{medium[7]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{medium[8]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{medium[9]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{medium[10]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{medium[11]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{medium[12].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{medium[13].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בא" ? (<p>{medium[14].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{medium[15].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{medium[16].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{medium[17].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{medium[18].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{medium[19].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{medium[20].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויקהל" ? (<p>{medium[21].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{medium[22].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{medium[12]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{medium[13]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בא" ? (<p>{medium[14]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{medium[15]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{medium[16]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{medium[17]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{medium[18]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{medium[19]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{medium[20]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויקהל" ? (<p>{medium[21]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{medium[22]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{medium[23].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{medium[24].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שמיני" ? (<p>{medium[24].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{medium[25].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{medium[26].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אחרי מות" ? (<p>{medium[27].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{medium[28].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אמור" ? (<p>{medium[29].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{medium[30].vort}</p>) : ''}
-                  {currentParsha === "בחוקתי" ? (<p>{medium[31].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{medium[23]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{medium[24]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמיני" ? (<p>{medium[25].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{medium[26]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{medium[27]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אחרי מות" ? (<p>{medium[28]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{medium[29]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אמור" ? (<p>{medium[30]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{medium[31]?.vort}</p>) : ''}
+                  {currentParsha === "בחוקתי" ? (<p>{medium[32]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{medium[32].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{medium[33].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{medium[34].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{medium[35].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קרח" ? (<p>{medium[36].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{medium[37].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בלק" ? (<p>{medium[38].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פנחס" ? (<p>{medium[39].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מטות" ? (<p>{medium[40].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{medium[41].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{medium[33]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{medium[34]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{medium[35]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{medium[36]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קרח" ? (<p>{medium[37]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{medium[38]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בלק" ? (<p>{medium[39]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פנחס" ? (<p>{medium[40]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מטות" ? (<p>{medium[41]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{medium[42]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "דברים" ? (<p style={{ color: "red" }}>{medium[42].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ואתחנן" ? (<p style={{ color: "green" }}>{medium[43].vort.split("/").map(p => <p> {p}</p>)}{selected[44].vort}</p>) : ''}
-                  {currentParsha === "עקב" ? (<p style={{ color: "darkteal" }}>{medium[45].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ראה" ? (<p style={{ color: "darkcyan" }}>{medium[46].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שופטים" ? (<p style={{ color: "royalblue" }}>{medium[47].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תצא" ? (<p style={{ color: "crimson" }}>{medium[48].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תבוא" ? (<p style={{ color: "darkmagenta" }}>{medium[49].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{medium[50].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{medium[51].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{medium[52].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{medium[53].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "דברים" ? (<p style={{ color: "red" }}>{medium[43]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ואתחנן" ? (<p style={{ color: "green" }}>{medium[44]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "עקב" ? (<p style={{ color: "darkteal" }}>{medium[45]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ראה" ? (<p style={{ color: "darkcyan" }}>{medium[46]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שופטים" ? (<p style={{ color: "royalblue" }}>{medium[47]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תצא" ? (<p style={{ color: "crimson" }}>{medium[48]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תבוא" ? (<p style={{ color: "darkmagenta" }}>{medium[49]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{medium[50]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{medium[51]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{medium[52]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{medium[53]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                 </div> <a href="/"><button style={{ marginBottom: "2%" }}>Back to home</button></a>
               </div>
             </React.Fragment>
@@ -342,64 +365,65 @@ function App() {
               <div className="fadeIn">
                 <Advanced />
                 <div className="vort-text">
-                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{advanced[0].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{advanced[1].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{advanced[2].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וירא" ? (<p style={{ color: "#1d0200" }}> {advanced[3].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{advanced[4].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{advanced[5].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויצא" ? (<p style={{ color: "#424111" }}>{advanced[6].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{advanced[7].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{medium[8].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{advanced[9].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{advanced[10].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{advanced[11].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בראשית" ? (<p style={{ color: "#728f02" }}>{advanced[0]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נח" ? (<p style={{ color: "#00035b" }}>{advanced[1]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "לך לך" ? (<p style={{ color: "#840000" }}>{advanced[2]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וירא" ? (<p style={{ color: "#1d0200" }}> {advanced[3]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חיי שרה" ? (<p style={{ color: "#3f012c" }}>{advanced[4]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תולדות" ? (<p style={{ color: "#112442" }}>{advanced[5]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויצא" ? (<p style={{ color: "#424111" }}>{advanced[6]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישלח" ? (<p style={{ color: "#421141" }}>{advanced[7]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וישב" ? (<p style={{ color: "#94E007" }} >{advanced[8]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מקץ" ? (<p style={{ color: "#260740" }}>{advanced[9]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויגש" ? (<p style={{ color: "#840000" }}>{advanced[10]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויחי" ? (<p style={{ color: "#BD461A" }}>{advanced[11]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{advanced[12].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{advanced[13].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בא" ? (<p>{advanced[14].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{advanced[15].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{advanced[16].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{medium[17].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{advanced[18].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{advanced[19].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{advanced[20].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמות" ? (<p style={{ color: "red" }}>{advanced[12]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וארא" ? (<p style={{ color: "darkgreen" }}>{advanced[13]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בא" ? (<p>{advanced[14]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בשלח" ? (<p style={{ color: "azure" }}>{advanced[15]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "יתרו" ? (<p style={{ color: "#FF7700" }}>{advanced[16]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "משפטים" ? (<p style={{ color: "green" }}>{advanced[17]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תרומה" ? (<p style={{ color: "purple" }}>{advanced[18]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תצוה" ? (<p style={{ color: "#FEDE17" }}>{advanced[19]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תשא" ? (<p style={{ color: "grey" }}>{advanced[20]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {currentParsha === "ויקהל" ? (<p>{advanced[21].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{advanced[22].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פקודי" ? (<p style={{ color: "grey" }}>{advanced[22]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{advanced[23].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{advanced[24].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שמיני" ? (<p>{advanced[24].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{advanced[25].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{advanced[26].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אחרי מות" ? (<p>{advanced[27].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{advanced[28].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "אמור" ? (<p>{advanced[29].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{advanced[30].vort}</p>) : ''}
-                  {currentParsha === "בחוקתי" ? (<p>{advanced[31].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ויקרא" ? (<p style={{ color: "crimson" }}>{advanced[23]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "צו" ? (<p style={{ color: "red" }}>{advanced[24]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שמיני" ? (<p>{advanced[25]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "תזריע" ? (<p style={{ color: "grey" }}>{advanced[26]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מצורע" ? (<p style={{ color: "green" }}>{advanced[27]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אחרי מות" ? (<p>{advanced[28]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קדושים" ? (<p style={{ color: "#FF7700" }}>{advanced[29]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "אמור" ? (<p>{advanced[30]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהר" ? (<p style={{ color: "green" }}>{advanced[31]?.vort}</p>) : ''}
+                  {currentParsha === "בחוקתי" ? (<p>{advanced[32]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{advanced[32].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{advanced[33].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{advanced[34].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{advanced[35].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "קרח" ? (<p>{medium[36].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{advanced[37].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "בלק" ? (<p>{advanced[38].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "פנחס" ? (<p>{advanced[39].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מטות" ? (<p>{advanced[40].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{advanced[41].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "במדבר" ? (<p style={{ color: "#E06F10" }}>{advanced[33]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נשא" ? (<p style={{ color: "crimson" }}>{advanced[34]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בהעלותך" ? (<p style={{ color: "#FF7700" }}>{advanced[35]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שלח" ? (<p style={{ color: "darkgreen" }}>{advanced[36]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "קרח" ? (<p>{advanced[37]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "חקת" ? (<p style={{ color: "red" }}>{advanced[38]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "בלק" ? (<p>{advanced[39]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "פנחס" ? (<p>{advanced[40]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מטות" ? (<p>{advanced[41]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "מסעי" ? (<p style={{ color: "#E06F10" }}>{advanced[42]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
                   {/*  */}
-                  {currentParsha === "דברים" ? (<p style={{ color: "red" }}>{advanced[42].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ואתחנן" ? (<p style={{ color: "green" }}>{advanced[43].vort.split("/").map(p => <p> {p}</p>)}{selected[44].vort}</p>) : ''}
-                  {currentParsha === "עקב" ? (<p style={{ color: "darkteal" }}>{advanced[45].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "ראה" ? (<p style={{ color: "darkcyan" }}>{advanced[46].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "שופטים" ? (<p style={{ color: "royalblue" }}>{advanced[47].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תצא" ? (<p style={{ color: "crimson" }}>{advanced[48].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "כי תבוא" ? (<p style={{ color: "darkmagenta" }}>{advanced[49].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{advanced[50].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{advanced[51].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{advanced[52].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
-                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{advanced[53].vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}</div><a href="/"><button style={{ marginBottom: "2%" }}>Back to home</button></a>
+                  {currentParsha === "דברים" ? (<p style={{ color: "red" }}>{advanced[43]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ואתחנן" ? (<p style={{ color: "green" }}>{advanced[44]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "עקב" ? (<p style={{ color: "darkteal" }}>{advanced[45]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "ראה" ? (<p style={{ color: "darkcyan" }}>{advanced[46]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "שופטים" ? (<p style={{ color: "royalblue" }}>{advanced[47]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תצא" ? (<p style={{ color: "crimson" }}>{advanced[48]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "כי תבוא" ? (<p style={{ color: "darkmagenta" }}>{advanced[49]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "נצבים" ? (<p style={{ color: "olive" }}>{advanced[50]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וילך" ? (<p style={{ color: "cyan" }}>{advanced[51]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "האזינו" ? (<p style={{ color: "blue" }}>{advanced[52]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                  {currentParsha === "וזאת הברכה" ? (<p style={{ color: "tomato" }}>{advanced[53]?.vort.split("/").map(p => <p> {p}</p>)}</p>) : ''}
+                </div><a href="/"><button style={{ marginBottom: "2%" }}>Back to home</button></a>
               </div>
             </React.Fragment>
           </Route>

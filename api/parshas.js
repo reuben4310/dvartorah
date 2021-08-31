@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("", express.static("../client/build"));
 const path = require('path');
+require("dotenv").config();
 
 router.get("/parshos", (req, res, next) => {
     pool.query("SELECT * FROM parshos",
@@ -75,5 +76,5 @@ if (process.env.NODE_ENV === 'production') {
     });
     app.listen(process.env.PORT)
 }
-app.listen(port)
+app.listen(port);
 app.use('/', router);

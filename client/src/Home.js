@@ -15,7 +15,7 @@ function Homepage() {
             })
             .then(data => {
                 setCurrentParsha(data.calendar_items[0].displayValue.he);
-                console.log(data);
+                console.log("home", data.calendar_items[0].displayValue.he);
             });
     }, []);
 
