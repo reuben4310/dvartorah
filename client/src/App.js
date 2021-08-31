@@ -14,10 +14,11 @@ function App() {
   const [advanced, setAdvanced] = useState([]);
   let [parsha, setParsha] = useState([]);
   const [currentParsha, setCurrentParsha] = useState([]);
+  const port=1818
 
   useEffect(async () => {
     await
-      fetch('http://localhost:1818/vorts')
+      fetch(`http://localhost:${port || process.env.PORT}/vorts`)
      
         .then(function (response) {
           if (response.status >= 400) {
@@ -40,7 +41,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:1818/mediumVorts')
+    fetch(`http://localhost:${port || process.env.PORT}/mediumVorts`)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -54,7 +55,7 @@ function App() {
   }, [medium]);
 
   useEffect(() => {
-    fetch('http://localhost:1818/advancedVorts')
+    fetch(`http://localhost:${port || process.env.PORT}/advancedVorts`)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
