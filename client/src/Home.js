@@ -8,6 +8,9 @@ function Homepage() {
     useEffect(() => {
         fetch("https://www.sefaria.org/api/calendars/")
             .then(res => {
+                if (res.status >= 400) {
+                    throw new Error("Bad response from server, try refreshing the page. You might need to do this a couple of times");
+                }
                 return res.json();
             })
             .then(data => {
