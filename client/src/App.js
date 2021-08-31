@@ -6,14 +6,11 @@ import Beginner from "./Beginner"
 import Medium from "./Medium"
 import Advanced from "./Advanced"
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import axios from 'axios'
 
 function App() {
-  // const ccc = process.env.REACT_APP_CLIENT_ID;
   console.log(process.env.NODE_ENV);
-  const host = process.env.NODE_ENV === 'production' ? 'http://dvartorah.herokuapp.com/' :
+  const host = process.env.NODE_ENV === 'production' ? process.env.PORT :
     'http://localhost:1818';
-  // console.log(process.env.REACT_APP_KEY);
   const [selected, setSelected] = useState([] || {});
   const [medium, setMedium] = useState([]);
   const [advanced, setAdvanced] = useState([]);
