@@ -9,7 +9,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 function App() {
   console.log(process.env.NODE_ENV);
-  const host = process.env.NODE_ENV === 'production' ? `http://dvartorah.herokuapp.com/${process.env.PORT}` :
+  const host = process.env.NODE_ENV === 'production' ? `https://connect-us.heroku.com/api/v3 ` :
     'http://localhost:1818';
   const [selected, setSelected] = useState([] || {});
   const [medium, setMedium] = useState([]);
@@ -22,7 +22,7 @@ function App() {
     try {
 
       fetch(`${host}/vorts`)
-      fetch(`http://dvartorah.herokuapp.com/${process.env.PORT}`)
+      // fetch(`http://dvartorah.herokuapp.com/${process.env.PORT}`)
         .then(function (response) {
           if (response.status >= 400) {
             throw new Error("Bad response from server");
