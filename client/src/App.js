@@ -19,24 +19,13 @@ function App() {
   // const port = 1818;
 
   useEffect(() => {
-
     try {
-
-      fetch(`${host}/vorts`
-
-
-      )
-
-        // fetch(`http://dvartorah.herokuapp.com/${process.env.PORT}`)
+      fetch(`${host}/vorts`)
+      
         .then(function (response) {
-
-
-
-
           if (response.status >= 400) {
             throw new Error("Bad response from server");
           }
-
           return response.json();
         })
         .then(function (begginerData) {
