@@ -68,7 +68,7 @@ function App() {
       })
       .then(function (advancedData) {
         setAdvanced((advancedData));
-        console.log("advanced", advancedData[54]);
+        console.log("advanced", advancedData);
       });
   }, [advanced]);
 
