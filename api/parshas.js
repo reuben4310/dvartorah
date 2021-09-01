@@ -78,5 +78,5 @@ if (process.env.NODE_ENV === 'production') {
 //     // Serve index.html file if it doesn't recognize the route
 //     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
 // });
-app.listen(process.env.PORT || port);
+app.listen(port);
 app.use('/', router);
