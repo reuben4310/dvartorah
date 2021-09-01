@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     try {
       fetch(`${host}/vorts`)
-      
+
         .then(function (response) {
           if (response.status >= 400) {
             throw new Error("Bad response from server");
