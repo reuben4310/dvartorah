@@ -4,10 +4,10 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 1200000000000000,
     // develpmont DB- Not so reliable though
-    host: 'remotemysql.com',
-    user: 'dmARuxnTUY',
-    password: 'XtNrPqFFL5',
-    database: 'dmARuxnTUY',
+    host: 'us-cdbr-east-04.cleardb.com',
+    user: 'b672081ae66eb3',
+    password: 'f8189290',
+    database: 'heroku_a4dbd96976a5627',
     // private DB for backup
     // host: 'localhost',
     // user: 'rnSefar',
