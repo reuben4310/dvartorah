@@ -9,7 +9,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 function App() {
   console.log(process.env.NODE_ENV);
-  const host = process.env.NODE_ENV === 'production' ? `https://dvartorah.herokuapp.com/` :
+  const host = process.env.NODE_ENV === 'production' ? `https://dvartorah.herokuapp.com` :
     'http://localhost:1818';
   const [selected, setSelected] = useState([] || {});
   const [medium, setMedium] = useState([]);
