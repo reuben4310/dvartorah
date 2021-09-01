@@ -1,13 +1,12 @@
-const debug = require('debug')('api:pool');
-
+const debug = require('debug')('api:poolAdvanced');
 const mysql = require('mysql');
 const pool = mysql.createPool({
-    connectionLimit: 1200000000000000,
+    connectionLimit: 120000000000000,
     // develpmont DB- Not so reliable though
     host: 'remotemysql.com',
-    user: 'dmARuxnTUY',
-    password: 'XtNrPqFFL5',
-    database: 'dmARuxnTUY',
+    user: 'UqYpVE4OuJ',
+    password: 'vEwaUhPOnT',
+    database: 'UqYpVE4OuJ',
     // private DB for backup
     // host: 'localhost',
     // user: 'rnSefar',
