@@ -76,5 +76,10 @@ module.exports = router;
 //     });
 //     app.listen(process.env.PORT)
 // }
-app.listen(port || process.env.PORT)
+app.use(express.static(path.resolve(__dirname, "../client", "build")));
+app.get("*", (req, res, next) => {
+    // Serve index.html file if it doesn't recognize the route
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+});
+app.listen(process.env.PORT || port);
 app.use('/', router);
