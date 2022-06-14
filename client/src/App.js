@@ -7,10 +7,10 @@ import Medium from "./Medium";
 import Advanced from "./Advanced";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import begginerTorahs from "./beginnerDvarTorahs";
-
-// {
-//   begginerTorahs.map((p) => console.log(p.vort));
-// }
+import mediumDvarTorahs from "./mediumDvarTorahs";
+{
+  mediumDvarTorahs.map((p) => console.log(p.vort));
+}
 
 function App() {
   console.log(process.env.NODE_ENV);
@@ -19,7 +19,7 @@ function App() {
       ? `https://dvartorah.herokuapp.com`
       : "http://localhost:1818";
 
-  const [medium, setMedium] = useState([]);
+  // const [mediumDvarTorahs, setMedium] = useState([]);
   const [advanced, setAdvanced] = useState([]);
   let [parsha, setParsha] = useState([]);
   const [currentParsha, setCurrentParsha] = useState([]);
@@ -1279,7 +1279,7 @@ function App() {
                 <div className="vort-text">
                   {currentParsha === "בראשית" ? (
                     <p style={{ color: "#728f02" }}>
-                      {medium[0]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[0]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1288,7 +1288,7 @@ function App() {
                   )}
                   {currentParsha === "נח" ? (
                     <p style={{ color: "#00035b" }}>
-                      {medium[1]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[1]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1297,7 +1297,7 @@ function App() {
                   )}
                   {currentParsha === "לך לך" ? (
                     <p style={{ color: "#840000" }}>
-                      {medium[2]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[2]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1307,7 +1307,7 @@ function App() {
                   {currentParsha === "וירא" ? (
                     <p style={{ color: "#1d0200" }}>
                       {" "}
-                      {medium[3]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[3]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1316,7 +1316,7 @@ function App() {
                   )}
                   {currentParsha === "חיי שרה" ? (
                     <p style={{ color: "#3f012c" }}>
-                      {medium[4]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[4]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1325,7 +1325,7 @@ function App() {
                   )}
                   {currentParsha === "תולדות" ? (
                     <p style={{ color: "#112442" }}>
-                      {medium[5]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[5]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1334,7 +1334,7 @@ function App() {
                   )}
                   {currentParsha === "ויצא" ? (
                     <p style={{ color: "#424111" }}>
-                      {medium[6].vort.split("/").map((p) => (
+                      {mediumDvarTorahs[6].vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1343,7 +1343,7 @@ function App() {
                   )}
                   {currentParsha === "וישלח" ? (
                     <p style={{ color: "#421141" }}>
-                      {medium[7]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[7]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1352,7 +1352,7 @@ function App() {
                   )}
                   {currentParsha === "וישב" ? (
                     <p style={{ color: "#94E007" }}>
-                      {medium[8]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[8]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1361,7 +1361,7 @@ function App() {
                   )}
                   {currentParsha === "מקץ" ? (
                     <p style={{ color: "#260740" }}>
-                      {medium[9]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[9]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1370,7 +1370,7 @@ function App() {
                   )}
                   {currentParsha === "ויגש" ? (
                     <p style={{ color: "#840000" }}>
-                      {medium[10]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[10]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1379,7 +1379,7 @@ function App() {
                   )}
                   {currentParsha === "ויחי" ? (
                     <p style={{ color: "#BD461A" }}>
-                      {medium[11]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[11]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1389,7 +1389,7 @@ function App() {
                   {/*  */}
                   {currentParsha === "שמות" ? (
                     <p style={{ color: "red" }}>
-                      {medium[12]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[12]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1398,7 +1398,7 @@ function App() {
                   )}
                   {currentParsha === "וארא" ? (
                     <p style={{ color: "darkgreen" }}>
-                      {medium[13]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[13]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1407,7 +1407,7 @@ function App() {
                   )}
                   {currentParsha === "בא" ? (
                     <p>
-                      {medium[14]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[14]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1416,7 +1416,7 @@ function App() {
                   )}
                   {currentParsha === "בשלח" ? (
                     <p style={{ color: "azure" }}>
-                      {medium[15]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[15]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1425,7 +1425,7 @@ function App() {
                   )}
                   {currentParsha === "יתרו" ? (
                     <p style={{ color: "#FF7700" }}>
-                      {medium[16]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[16]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1434,7 +1434,7 @@ function App() {
                   )}
                   {currentParsha === "משפטים" ? (
                     <p style={{ color: "green" }}>
-                      {medium[17]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[17]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1443,7 +1443,7 @@ function App() {
                   )}
                   {currentParsha === "תרומה" ? (
                     <p style={{ color: "purple" }}>
-                      {medium[18]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[18]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1452,7 +1452,7 @@ function App() {
                   )}
                   {currentParsha === "תצוה" ? (
                     <p style={{ color: "#FEDE17" }}>
-                      {medium[19]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[19]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1461,7 +1461,7 @@ function App() {
                   )}
                   {currentParsha === "כי תשא" ? (
                     <p style={{ color: "grey" }}>
-                      {medium[20]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[20]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1470,7 +1470,7 @@ function App() {
                   )}
                   {currentParsha === "ויקהל" ? (
                     <p>
-                      {medium[21]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[21]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1479,7 +1479,7 @@ function App() {
                   )}
                   {currentParsha === "פקודי" ? (
                     <p style={{ color: "grey" }}>
-                      {medium[22]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[22]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1489,7 +1489,7 @@ function App() {
                   {/*  */}
                   {currentParsha === "ויקרא" ? (
                     <p style={{ color: "crimson" }}>
-                      {medium[23]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[23]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1498,7 +1498,7 @@ function App() {
                   )}
                   {currentParsha === "צו" ? (
                     <p style={{ color: "red" }}>
-                      {medium[24]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[24]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1507,7 +1507,7 @@ function App() {
                   )}
                   {currentParsha === "שמיני" ? (
                     <p>
-                      {medium[25].vort.split("/").map((p) => (
+                      {mediumDvarTorahs[25].vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1516,7 +1516,7 @@ function App() {
                   )}
                   {currentParsha === "תזריע" ? (
                     <p style={{ color: "grey" }}>
-                      {medium[26]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[26]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1525,7 +1525,7 @@ function App() {
                   )}
                   {currentParsha === "מצורע" ? (
                     <p style={{ color: "green" }}>
-                      {medium[27]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[27]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1534,7 +1534,7 @@ function App() {
                   )}
                   {currentParsha === "אחרי מות" ? (
                     <p>
-                      {medium[28]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[28]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1543,7 +1543,7 @@ function App() {
                   )}
                   {currentParsha === "קדושים" ? (
                     <p style={{ color: "#FF7700" }}>
-                      {medium[29]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[29]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1552,7 +1552,7 @@ function App() {
                   )}
                   {currentParsha === "אמור" ? (
                     <p>
-                      {medium[30]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[30]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1560,13 +1560,13 @@ function App() {
                     ""
                   )}
                   {currentParsha === "בהר" ? (
-                    <p style={{ color: "green" }}>{medium[31]?.vort}</p>
+                    <p style={{ color: "green" }}>{mediumDvarTorahs[31]?.vort}</p>
                   ) : (
                     ""
                   )}
                   {currentParsha === "בחוקתי" ? (
                     <p>
-                      {medium[32]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[32]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1576,7 +1576,7 @@ function App() {
                   {/*  */}
                   {currentParsha === "במדבר" ? (
                     <p style={{ color: "#E06F10" }}>
-                      {medium[33]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[33]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1585,7 +1585,7 @@ function App() {
                   )}
                   {currentParsha === "נשא" ? (
                     <p style={{ color: "crimson" }}>
-                      {medium[34]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[34]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1594,7 +1594,7 @@ function App() {
                   )}
                   {currentParsha === "בהעלותך" ? (
                     <p style={{ color: "#FF7700" }}>
-                      {medium[35]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[35]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1603,7 +1603,7 @@ function App() {
                   )}
                   {currentParsha === "שלח" ? (
                     <p style={{ color: "darkgreen" }}>
-                      {medium[36]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[36]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1612,7 +1612,7 @@ function App() {
                   )}
                   {currentParsha === "קרח" ? (
                     <p>
-                      {medium[37]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[37]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1621,7 +1621,7 @@ function App() {
                   )}
                   {currentParsha === "חקת" ? (
                     <p style={{ color: "red" }}>
-                      {medium[38]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[38]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1630,7 +1630,7 @@ function App() {
                   )}
                   {currentParsha === "בלק" ? (
                     <p>
-                      {medium[39]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[39]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1639,7 +1639,7 @@ function App() {
                   )}
                   {currentParsha === "פנחס" ? (
                     <p>
-                      {medium[40]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[40]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1648,7 +1648,7 @@ function App() {
                   )}
                   {currentParsha === "מטות" ? (
                     <p>
-                      {medium[41]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[41]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1657,7 +1657,7 @@ function App() {
                   )}
                   {currentParsha === "מסעי" ? (
                     <p style={{ color: "#E06F10" }}>
-                      {medium[42]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[42]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1667,7 +1667,7 @@ function App() {
                   {/*  */}
                   {currentParsha === "דברים" ? (
                     <p style={{ color: "red" }}>
-                      {medium[43]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[43]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1676,7 +1676,7 @@ function App() {
                   )}
                   {currentParsha === "ואתחנן" ? (
                     <p style={{ color: "green" }}>
-                      {medium[44]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[44]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1685,7 +1685,7 @@ function App() {
                   )}
                   {currentParsha === "עקב" ? (
                     <p style={{ color: "darkteal" }}>
-                      {medium[45]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[45]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1694,7 +1694,7 @@ function App() {
                   )}
                   {currentParsha === "ראה" ? (
                     <p style={{ color: "darkcyan" }}>
-                      {medium[46]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[46]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1703,7 +1703,7 @@ function App() {
                   )}
                   {currentParsha === "שופטים" ? (
                     <p style={{ color: "royalblue" }}>
-                      {medium[47]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[47]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1712,7 +1712,7 @@ function App() {
                   )}
                   {currentParsha === "כי תצא" ? (
                     <p style={{ color: "crimson" }}>
-                      {medium[48]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[48]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1721,7 +1721,7 @@ function App() {
                   )}
                   {currentParsha === "כי תבוא" ? (
                     <p style={{ color: "darkmagenta" }}>
-                      {medium[49]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[49]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1730,7 +1730,7 @@ function App() {
                   )}
                   {currentParsha === "נצבים" ? (
                     <p style={{ color: "olive" }}>
-                      {medium[50]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[50]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1739,7 +1739,7 @@ function App() {
                   )}
                   {currentParsha === "וילך" ? (
                     <p style={{ color: "cyan" }}>
-                      {medium[51]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[51]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1748,7 +1748,7 @@ function App() {
                   )}
                   {currentParsha === "האזינו" ? (
                     <p style={{ color: "blue" }}>
-                      {medium[52]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[52]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
@@ -1757,7 +1757,7 @@ function App() {
                   )}
                   {currentParsha === "וזאת הברכה" ? (
                     <p style={{ color: "tomato" }}>
-                      {medium[53]?.vort.split("/").map((p) => (
+                      {mediumDvarTorahs[53]?.vort.split("/").map((p) => (
                         <p> {p}</p>
                       ))}
                     </p>
