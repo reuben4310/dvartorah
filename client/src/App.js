@@ -9,9 +9,6 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import begginerTorahs from "./beginnerDvarTorahs";
 import mediumDvarTorahs from "./mediumDvarTorahs";
 import advancedDvarTorahs from "./advancedDvarTorahs";
-{
-  mediumDvarTorahs.map((p) => console.log(p.vort));
-}
 
 function App() {
   console.log(process.env.NODE_ENV);
@@ -55,7 +52,7 @@ function App() {
                   {/* Sefer Berishis */}
                   {/* Berishis */}
                   {parsha === "0" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.ID === 1 &&
                         option.parshaId === +parsha && (
@@ -69,7 +66,7 @@ function App() {
 
                   {/* Noach */}
                   {parsha === "1" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "green" }}>
@@ -81,7 +78,7 @@ function App() {
                     )}
                   {/* Lech Lecha */}
                   {parsha === "2" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "blue" }}>
@@ -93,9 +90,9 @@ function App() {
                     )}
                   {/* vayeira */}
                   {parsha === "3" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
-                        option.ID === 5 &&
+                        option.ID === 4 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "rgb(33,88,98)" }}>
                             {option.vort.split("/").map((p) => (
@@ -106,9 +103,9 @@ function App() {
                     )}
                   {/* Chayei Sarah */}
                   {parsha === "4" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
-                        option.ID === 7 &&
+                        option.ID === 5 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "rgb(3,188,19)" }}>
                             {option.vort.split("/").map((p) => (
@@ -119,9 +116,9 @@ function App() {
                     )}
                   {/* Toldos */}
                   {parsha === "5" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
-                        option.ID === 9 &&
+                        option.ID === 6 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "darkteal" }}>
                             {option.vort.split("/").map((p) => (
@@ -132,8 +129,9 @@ function App() {
                     )}
                   {/* Vayeitzei */}
                   {parsha === "6" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
+                        option.ID === 7 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "crimson" }}>
                             {option.vort.split("/").map((p) => (
@@ -144,8 +142,9 @@ function App() {
                     )}
                   {/* Vayishlach */}
                   {parsha === "7" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
+                        option.ID === 8 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "#831" }}>
                             {option.vort.split("/").map((p) => (
@@ -156,8 +155,9 @@ function App() {
                     )}
                   {/* Vayeishev */}
                   {parsha === "8" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
+                        option.ID === 12 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "##2ECC40" }}>
                             {option.vort.split("/").map((p) => (
@@ -168,8 +168,9 @@ function App() {
                     )}
                   {/* Mikaitz */}
                   {parsha === "9" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
+                        option.ID === 13 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "#F012BE" }}>
                             {option.vort.split("/").map((p) => (
@@ -180,8 +181,9 @@ function App() {
                     )}
                   {/* Vayigash */}
                   {parsha === "10" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
+                        option.ID === 14 &&
                         option.parshaId === +parsha && (
                           <p style={{ color: "##4040a1" }}>
                             {option.vort.split("/").map((p) => (
@@ -192,7 +194,7 @@ function App() {
                     )}
                   {/* Vayichi */}
                   {parsha === "11" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#034f84" }}>
@@ -205,7 +207,7 @@ function App() {
                   {/* Sefer Shmos */}
                   {/* Shmos  */}
                   {parsha === "12" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#01FF70" }}>
@@ -217,7 +219,7 @@ function App() {
                     )}
                   {/* Vuaira */}
                   {parsha === "13" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#fe3c03" }}>
@@ -229,7 +231,7 @@ function App() {
                     )}
                   {/* Bo */}
                   {parsha === "14" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#ff851b" }}>
@@ -241,7 +243,7 @@ function App() {
                     )}
                   {/* Bshalach */}
                   {parsha === "15" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#85144b" }}>
@@ -253,7 +255,7 @@ function App() {
                     )}
                   {/* Yisro */}
                   {parsha === "16" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#034f84" }}>
@@ -265,7 +267,7 @@ function App() {
                     )}
                   {/* Mishpatim */}
                   {parsha === "17" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#ff012be" }}>
@@ -277,7 +279,7 @@ function App() {
                     )}
                   {/* Terumah */}
                   {parsha === "18" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#b10dc9" }}>
@@ -289,7 +291,7 @@ function App() {
                     )}
                   {/* Tetzaveh */}
                   {parsha === "19" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#04f84" }}>
@@ -301,7 +303,7 @@ function App() {
                     )}
                   {/* Ki Sisa */}
                   {parsha === "20" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#040419" }}>
@@ -313,7 +315,7 @@ function App() {
                     )}
                   {/* Vayakhail */}
                   {parsha === "21" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#008000" }}>
@@ -325,7 +327,7 @@ function App() {
                     )}
                   {/* Pekudai */}
                   {parsha === "22" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#04939c8" }}>
@@ -338,7 +340,7 @@ function App() {
                   {/* Sefer Vayikra */}
                   {/* Vayikra */}
                   {parsha === "23" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FD0E35" }}>
@@ -350,7 +352,7 @@ function App() {
                     )}
                   {/* Tzav */}
                   {parsha === "24" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#E77200" }}>
@@ -362,7 +364,7 @@ function App() {
                     )}
                   {/* Shmini */}
                   {parsha === "25" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#5E8C31" }}>
@@ -374,7 +376,7 @@ function App() {
                     )}
                   {/* Tatzria */}
                   {parsha === "26" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#00468C" }}>
@@ -386,7 +388,7 @@ function App() {
                     )}
                   {/* Metzora */}
                   {parsha === "27" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#0066FF" }}>
@@ -398,7 +400,7 @@ function App() {
                     )}
                   {/* Achrai */}
                   {parsha === "28" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#652DC1" }}>
@@ -410,7 +412,7 @@ function App() {
                     )}
                   {/* Kedoshim */}
                   {parsha === "29" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#A50B5E" }}>
@@ -422,7 +424,7 @@ function App() {
                     )}
                   {/* Emor */}
                   {parsha === "30" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#E30B5C" }}>
@@ -434,7 +436,7 @@ function App() {
                     )}
                   {/* B'Har */}
                   {parsha === "31" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#CA3435" }}>
@@ -446,7 +448,7 @@ function App() {
                     )}
                   {/* Bechukoishai */}
                   {parsha === "32" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FF6037" }}>
@@ -459,7 +461,7 @@ function App() {
                   {/* Sefer Bamidbar */}
                   {/*Bamidbar  */}
                   {parsha === "33" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FF9933" }}>
@@ -471,7 +473,7 @@ function App() {
                     )}
                   {/* Naso */}
                   {parsha === "34" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FF00CC" }}>
@@ -483,7 +485,7 @@ function App() {
                     )}
                   {/* Bahaloshcha */}
                   {parsha === "35" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FA5B3D" }}>
@@ -495,7 +497,7 @@ function App() {
                     )}
                   {/* Shlach */}
                   {parsha === "36" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#299617" }}>
@@ -507,7 +509,7 @@ function App() {
                     )}
                   {/* Korach */}
                   {parsha === "37" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#2243B6" }}>
@@ -519,7 +521,7 @@ function App() {
                     )}
                   {/* Chukas */}
                   {parsha === "38" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#9C51B6" }}>
@@ -531,7 +533,7 @@ function App() {
                     )}
                   {/* Balak */}
                   {parsha === "39" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#A83731" }}>
@@ -543,7 +545,7 @@ function App() {
                     )}
                   {/* Pinchas */}
                   {parsha === "40" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#E97451" }}>
@@ -555,7 +557,7 @@ function App() {
                     )}
                   {/* Matos */}
                   {parsha === "41" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FFDB00" }}>
@@ -567,7 +569,7 @@ function App() {
                     )}
                   {/* Masei */}
                   {parsha === "42" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FF7A00" }}>
@@ -580,7 +582,7 @@ function App() {
                   {/* Sefer Devarim */}
                   {/* Devarim */}
                   {parsha === "43" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#FF007C" }}>
@@ -592,7 +594,7 @@ function App() {
                     )}
                   {/* V'Eschanan */}
                   {parsha === "44" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#C46210" }}>
@@ -604,7 +606,7 @@ function App() {
                     )}
                   {/* Akev */}
                   {parsha === "45" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#9C2542" }}>
@@ -616,7 +618,7 @@ function App() {
                     )}
                   {/* Raieh */}
                   {parsha === "46" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#58427C" }}>
@@ -628,7 +630,7 @@ function App() {
                     )}
                   {/* Shoftim */}
                   {parsha === "47" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#85754E" }}>
@@ -640,7 +642,7 @@ function App() {
                     )}
                   {/* Tzeitzei */}
                   {parsha === "48" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#319177" }}>
@@ -652,7 +654,7 @@ function App() {
                     )}
                   {/* Savo */}
                   {parsha === "49" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#9C7C38" }}>
@@ -664,7 +666,7 @@ function App() {
                     )}
                   {/* Netzavim */}
                   {parsha === "50" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#8D4E85" }}>
@@ -676,7 +678,7 @@ function App() {
                     )}
                   {/* Vayailech */}
                   {parsha === "51" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#8FD400" }}>
@@ -688,7 +690,7 @@ function App() {
                     )}
                   {/* Hazinu */}
                   {parsha === "52" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#0081AB" }}>
@@ -700,7 +702,7 @@ function App() {
                     )}
                   {/* V'Toz Habracha */}
                   {parsha === "53" &&
-                    begginerTorahs.map(
+                    mediumDvarTorahs.map(
                       (option) =>
                         option.parshaId === +parsha && (
                           <p style={{ color: "#2E2D88" }}>
@@ -2214,21 +2216,7 @@ function App() {
                     ""
                   )}
                 </div>
-                {console.log(
-                  advancedDvarTorahs[0],
-                  advancedDvarTorahs[48],
-                  "49",
-                  advancedDvarTorahs[49],
-                  advancedDvarTorahs[50],
-                  advancedDvarTorahs[51],
-                  advancedDvarTorahs[52],
-                  "53",
-                  advancedDvarTorahs[53],
-                  "mmmmmmmmm",
-                  mediumDvarTorahs,
-                  mediumDvarTorahs[53]
-                )}
-                ;{console.log(advancedDvarTorahs)};
+
                 <a href="/">
                   <button style={{ marginBottom: "2%" }}>Back to home</button>
                 </a>
